@@ -38,7 +38,7 @@ void DabbleGamepad::update() {
     }
 }
 
-bool DabbleGamepad::isButtonPressed(uint16_t button) 
+uint16_t DabbleGamepad::isButtonPressed(uint16_t button) 
 { 
       return buttonState & button;    
 }

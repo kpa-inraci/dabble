@@ -26,7 +26,7 @@ public:
     DabbleGamepad();
     void begin(long baudRate);
     void update(void);
-    bool isButtonPressed(uint16_t button);
+    uint16_t isButtonPressed(uint16_t button);
     int16_t getJoystickX(void);
     int16_t getJoystickY(void);
     uint16_t getJoystickAngle(void);
