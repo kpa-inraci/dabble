@@ -40,7 +40,10 @@ void DabbleGamepad::update() {
 
 uint16_t DabbleGamepad::isButtonPressed(uint16_t button) 
 { 
-      return buttonState & button;    
+      if(buttonState==button)
+        return buttonState;
+      else
+       return 0;    
 }
 
 int16_t DabbleGamepad::getJoystickX(void) 
