@@ -1,4 +1,11 @@
+#include <BLEDevice.h>
+#include <BLEServer.h>
+#include <BLEUtils.h>
+#include <BLE2902.h>
 #include "DabbleGamepad.h"
+
+#define SERVICE_UUID        "YOUR_SERVICE_UUID"
+#define CHARACTERISTIC_UUID "YOUR_CHARACTERISTIC_UUID"
 
 DabbleGamepad::DabbleGamepad() : joystickX(0), joystickY(0), buttonState(0) {
     memset(incomingData, 0, sizeof(incomingData));
