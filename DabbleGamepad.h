@@ -2,10 +2,6 @@
 #define DABBLE_GAMEPAD_H
 
 #include <Arduino.h>
-#include <BLEDevice.h>
-#include <BLEServer.h>
-#include <BLEUtils.h>
-#include <BLE2902.h>
 #include <math.h>
 
 
@@ -50,9 +46,6 @@ private:
     uint16_t joystickAngle;
     uint16_t joystickRadius;
 
-       BLEServer *pServer;
-    BLEService *pService;
-    BLECharacteristic *pCharacteristic;
 };
 
 
