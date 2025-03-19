@@ -1,5 +1,7 @@
 #include "DabbleGamepad.h"
 
+unsigned int compteur=0;
+
 DabbleGamepad gamepad;
 
 void setup() 
@@ -31,6 +33,12 @@ void loop()
     Serial.printf("a:%3d°\n",gamepad.getJoystickAngle());
    // Serial.printf("r:%3d°\n",gamepad.getJoystickRadius());
   }    
+  
+
+ envoyerDabble("valeur du compteur %d",compteur);   //envoie de donnée vers le terminal dabble
+ compteur+=1;
+
+  delay(2000);
 }
 
 

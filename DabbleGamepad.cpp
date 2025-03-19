@@ -105,4 +105,24 @@ void DabbleGamepad::parseData() {
     }
 }
 
+void envoyerDabble(const char* format, ...) //fonction qui permet de reproduire le printf
+{
+   char buffer[128];  // Taille max du message (à ajuster si besoin)
+
+  va_list args;
+  va_start(args, format);
+  vsnprintf(buffer, sizeof(buffer), format, args);  // Formatage dans le buffer
+  va_end(args);
+
+  int longueur = strlen(buffer);
+
+  Serial1.write(0xFF);           // Début de trame
+  Serial1.write(0x0E);           // Module Terminal
+  Serial1.write(0x01);           // Fonction "print"
+  Serial1.write(0x01);           // 1 argument
+  Serial1.write(longueur);       // Longueur du message
+  Serial1.print(buffer);         // Message formaté
+  Serial1.write((uint8_t)0x00);  // Fin de trame
+}
+
 
