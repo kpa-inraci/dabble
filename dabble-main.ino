@@ -38,6 +38,11 @@ void loop()
  envoyerDabble("valeur du compteur %d",compteur);   //envoie de donnée vers le terminal dabble
  compteur+=1;
 
+ if(verifierCommandeDabble("start") )
+ {
+  //on fait quelque chose si la commande correspond
+ }
+
   delay(2000);
 }
 

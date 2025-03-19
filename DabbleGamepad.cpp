@@ -125,4 +125,73 @@ void envoyerDabble(const char* format, ...) //fonction qui permet de reproduire 
   Serial1.write((uint8_t)0x00);  // Fin de trame
 }
 
+bool verifierCommandeDabble(const char* commandeAttendue) 
+{
+  static enum {
+    ATTENTE,
+    MODULE_ID,
+    FUNCTION_ID,
+    ARG_COUNT,
+    ARG_LENGTH,
+    LECTURE_DATA,
+    FIN
+  } etat = ATTENTE;
+
+  static byte moduleID, functionID, argCount, argLen, index;
+  static char message[64]; // buffer du message reçu
+
+  while (Serial1.available()) {
+    byte data = Serial1.read();
+
+    switch (etat) {
+      case ATTENTE:
+        if (data == 0xFF) etat = MODULE_ID;
+        break;
+
+      case MODULE_ID:
+        if (data == 0x0E) etat = FUNCTION_ID;
+        else etat = ATTENTE;
+        break;
+
+      case FUNCTION_ID:
+        if (data == 0x01) etat = ARG_COUNT;
+        else etat = ATTENTE;
+        break;
+
+      case ARG_COUNT:
+        if (data == 1) etat = ARG_LENGTH;
+        else etat = ATTENTE;
+        break;
+
+      case ARG_LENGTH:
+        if (data < sizeof(message)) {
+          argLen = data;
+          index = 0;
+          etat = LECTURE_DATA;
+        } else {
+          etat = ATTENTE;
+        }
+        break;
+
+      case LECTURE_DATA:
+        message[index++] = (char)data;
+        if (index >= argLen) {
+          message[argLen] = '\0';
+          etat = FIN;
+        }
+        break;
+
+      case FIN:
+        if (data == 0x00) {
+          etat = ATTENTE;
+          return (strcmp(message, commandeAttendue) == 0);
+        }
+        break;
+    }
+  }
+
+  return false;
+}
+
+
 

@@ -23,6 +23,7 @@
 extern int buttonvar;
 extern float x_value;
 void envoyerDabble(const char* format, ...); 
+bool verifierCommandeDabble(const char* commandeAttendue);
 class DabbleGamepad {
 public:
     DabbleGamepad();
